@@ -25,7 +25,7 @@
                             <div class="panel-body">
                                 <p class="text-main text-semibold">说明</p>
                                 <p>
-                                    以下是调用Greeter合约的方法
+                                    以下是调用Greeter合约的方法，其中读取方法不需要消耗任何gas费用，写入操作需要私钥签名，并消耗gas费用
                                 </p>
                             </div>
                             <div class="panel-body">
@@ -54,7 +54,7 @@
                                         <label class="col-sm-2 control-label" for="callFunction">调用的合约方法</label>
                                         <div class="col-sm-8">
                                             <input type="text"
-                                                   value="greet"
+                                                   value="读取为: greet, 写入为: setGreeting"
                                                    placeholder="greet"
                                                    class="form-control input-sm"
                                                    id="callFunction">
@@ -64,6 +64,7 @@
                                         <label class="col-md-2 control-label" for="newValue">新值</label>
                                         <div class="col-md-8">
                                             <input type="text"
+                                                   value="Hello World!"
                                                    placeholder="newValue"
                                                    class="form-control input-sm"
                                                    id="newValue">
@@ -123,7 +124,7 @@
 
             let address = $("#address").val();
             let privateKey = $("#privateKey").val();
-            let callFunction = $("#callFunction").val();
+            let callFunction = "greet";
 
             if (address.trim() === '') {
                 alert('操作钱包账号不能为空');
@@ -140,7 +141,8 @@
                 return;
             }
 
-            var json =  {
+
+            var json = {
                 "address": address,
                 "privateKey": privateKey,
                 "function": callFunction
@@ -148,6 +150,54 @@
 
             $.ajaxSetup({contentType: "application/json; charset=utf-8"});
             $.post("/greeter/get", JSON.stringify(json), function (data) {
+                // alert("发送成功");
+                $('#output').val(JSON.stringify(data, null, "\t"));
+            }).done(function () {
+                console.log("done");
+            }).fail(function (e) {
+                // alert("发送失败");
+                $('#output').val(JSON.stringify(e, null, "\t"));
+            }).always(function () {
+                console.log("complete");
+            }, 'json');
+        });
+
+        $("#set").click(function (event) {
+
+            let address = $("#address").val();
+            let privateKey = $("#privateKey").val();
+            let callFunction = "setGreeting";
+            let newValue = $("#newValue").val();
+
+            if (address.trim() === '') {
+                alert('操作钱包账号不能为空');
+                return;
+            }
+
+            if (privateKey.trim() === '') {
+                alert('操作钱包私钥不能为空');
+                return;
+            }
+
+            if (callFunction.trim() === '') {
+                alert('合约方法不能为空');
+                return;
+            }
+
+            if (newValue.trim() === '') {
+                alert('新值不能为空');
+                return;
+            }
+
+            var json = {
+                "address": address,
+                "privateKey": privateKey,
+                "function": callFunction,
+                "newValue": newValue
+            }
+
+            $.ajaxSetup({contentType: "application/json; charset=utf-8"});
+            $.post("/greeter/set", JSON.stringify(json), function (data) {
                 // alert("发送成功");
                 $('#output').val(JSON.stringify(data, null, "\t"));
             }).done(function () {

@@ -35,7 +35,14 @@ public class GreeterController {
     @PostMapping("/get")
     @ResponseBody
     Object get(@RequestBody GreeterParam account) {
-        return greeterContract.get(account.getFunction(), account.getAddress());
+        return greeterContract.get(account);
+    }
+
+    @SneakyThrows
+    @PostMapping("/set")
+    @ResponseBody
+    Object set(@RequestBody GreeterParam account) {
+        return greeterContract.set(account);
     }
 
 }
