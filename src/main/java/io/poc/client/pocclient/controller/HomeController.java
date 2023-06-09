@@ -1,13 +1,23 @@
 package io.poc.client.pocclient.controller;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Slf4j
+@RequiredArgsConstructor
+@Controller
 public class HomeController {
 
     @GetMapping("/")
     String index() {
         return "index";
     }
+
+    @GetMapping("favicon.ico")
+    String favicon() {
+        return "forward:/img/favicon.ico";
+    }
+
 }

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{header.html :: header}"></div>
+<body>
+<div id="container" class="effect aside-float aside-bright mainnav-out slide">
+
+    <div class="boxed">
+
+        <!--CONTENT CONTAINER-->
+        <!--===================================================-->
+        <div id="content-container">
+            <div id="page-head">
+                <div class="text-center">
+                    <h3>账号列表</h3>
+                </div>
+            </div>
+
+            <!--Page content-->
+            <!--===================================================-->
+            <div id="page-content">
+
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <p class="text-main text-semibold">说明</p>
+                                <p>
+                                    以下是自己搭建测试网络的账号列表和余额
+                                </p>
+                            </div>
+                            <div class="panel-body">
+                                <table data-toggle="table"
+                                       data-url="data/bs-table.json"
+                                       data-show-columns="true"
+                                       data-pagination="false" data-show-pagination-switch="true">
+                                    <thead>
+                                    <tr>
+                                        <th data-field="address" class="col-sm-9">地址</th>
+                                        <th data-field="balance">余额</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="account : ${list}">
+                                        <td th:text="${account.address}"></td>
+                                        <td th:text="${account.balance}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-mint" id="back" style="margin-right: 20px"
+                                                type="button">返回
+                                        </button>
+                                        <button class="btn btn-warning" type="reset">重置</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--===================================================-->
+            <!--End page content-->
+
+        </div>
+        <!--===================================================-->
+        <!--END CONTENT CONTAINER-->
+    </div>
+
+
+</div>
+<div th:replace="~{footer.html :: footer}"></div>
+<!--===================================================-->
+
+<!--Custom script [ DEMONSTRATION ]-->
+<!--===================================================-->
+<script>
+    $(document).ready(function () {
+        $("#back").click(function (event) {
+            window.location.href = "/";
+        });
+
+    });
+</script>
+
+</body>
+</html>
+

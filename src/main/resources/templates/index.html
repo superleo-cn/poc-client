@@ -1,33 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <title>Kline Console</title>
-
-    <!--Bootstrap Stylesheet [ REQUIRED ]-->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-
-
-    <!--Nifty Stylesheet [ REQUIRED ]-->
-    <link th:href="@{/css/nifty.min.css}" rel="stylesheet">
-
-    <link rel="icon" th:href="@{/img/favicon.ico}" type="image/x-icon"/>
-
-    <!--=================================================-->
-
-    <!--Morris.js [ OPTIONAL ]-->
-    <link th:href="@{/css/themes/type-d/theme-navy.min.css}" rel="stylesheet">
-
-
-</head>
-
-<!--TIPS-->
-<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{header.html :: header}"></div>
 <body>
 <div id="container" class="effect aside-float aside-bright mainnav-out slide">
 
@@ -38,7 +11,7 @@
         <div id="content-container">
             <div id="page-head">
                 <div class="text-center">
-                    <h3>Kline历史数据更新系统</h3>
+                    <h3>首页</h3>
                 </div>
             </div>
 
@@ -46,71 +19,24 @@
             <!--===================================================-->
             <div id="page-content">
 
-
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <div class="panel">
                             <div class="panel-body">
-                                <p class="text-main text-semibold">更新说明</p>
+                                <p class="text-main text-semibold">说明</p>
                                 <p>
-                                    首先需要将缺少的数据插入数据库中，然后再进行补发才有效果。要更新的币种，必须是系统支持的和已经开放的币种。 (比如：BSaaveusd, BSadausd, BSbchusd,
-                                    BSbnbusd, BSbsvusd, BSbtcusd, BSdashusd, BSdogeusd, BSdotusd, BSeosusd, BSetcusd,
-                                    BSethusd, BSfilusd, BShtusd, BSlinkusd, BSltcusd, BSneousd, BSokbusd, BSontusd,
-                                    BSqtumusd, BSshibusd, BSsxpusd, BStrxusd, BSuniusd, BSxrpusd, BSzecusd, BSdydxusd, BSsolusd, BSaxsusd, BScotiusd, BSlunausd)
+                                    系统要完成以下几个功能:
                                 </p>
+                                <ul>
+                                    <li>列出所有账号的NFT: <a th:href="@{/accounts}">点击我</a></li>
+                                    <li>测试合约执行: <a th:href="@{/greeter/index}">点击我</a></li>
+                                    <li>指定给某个用户A生成NFT(mint): 待完成</li>
+                                    <li>某个用户A给用户B转送NFT(mint): 待完成</li>
+                                    <li>NFT更新: 待完成</li>
+                                </ul>
                                 <p>
-                                    系统会一次性最多可以同时更新20个币种，如果超过20个系统会分批进行。但是通过UI，你仍然可以同时传递所有的需要更新的币种。
+                                    注意：如果有新的链接，就直接在上面修改。
                                 </p>
-                                <p>
-                                    注意：币种和币种之间用英文逗号分隔。
-                                </p>
-                                <p>
-                                    输入的kline URL是kline内网宿主机的IP+端口的，并不是docker的。格式为：
-                                    http://localhost:8010/kline/intranet/recover
-                                </p>
-                                <p>
-                                    如果想看某个kline是不是master，可以使用这个URL： http://localhost:8010/kline/intranet/info
-                                </p>
-
-                            </div>
-                            <div class="panel-body text-center">
-                                <div class="form-group">
-                                    <form class="panel-body form-horizontal form-padding">
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label" for="klineUrl">kline URL</label>
-                                            <div class="col-sm-8">
-                                                <input type="text"
-                                                       placeholder="http://localhost:8050/kline/intranet/recover"
-                                                       class="form-control input-sm"
-                                                       id="klineUrl">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label" for="symbols">更新币种</label>
-                                            <div class="col-md-8">
-                                            <textarea id="symbols" rows="5" class="form-control"
-                                                      placeholder="BSaaveusd,BSadausd"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-2 control-label" for="symbols">输出</label>
-                                            <div class="col-md-8">
-                                            <textarea id="output" rows="10" class="form-control"
-                                                      placeholder=""></textarea>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="row">
-                                    <div class="col-sm-9 col-sm-offset-3">
-                                        <button class="btn btn-mint" id="sendBtn" style="margin-right: 20px"
-                                                type="button">发送
-                                        </button>
-                                        <button class="btn btn-warning" type="reset">重置</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,87 +49,21 @@
         </div>
         <!--===================================================-->
         <!--END CONTENT CONTAINER-->
-
     </div>
 
 
-    <!-- FOOTER -->
-    <!--===================================================-->
-    <footer id="footer">
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-        <!-- Remove the class "show-fixed" and "hide-fixed" to make the content always appears. -->
-        <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
-        <p class="pad-lft">&#0169; 2021 Kline</p>
-
-    </footer>
-    <!--===================================================-->
-    <!-- END FOOTER -->
-
-
-    <!-- SCROLL PAGE BUTTON -->
-    <!--===================================================-->
-    <button class="scroll-top btn">
-        <i class="pci-chevron chevron-up"></i>
-    </button>
-    <!--===================================================-->
-
-
 </div>
+<div th:replace="~{footer.html :: footer}"></div>
 <!--===================================================-->
-<!-- END OF CONTAINER -->
-
-
-<!--JAVASCRIPT-->
-<!--=================================================-->
-
-<!--jQuery [ REQUIRED ]-->
-<script th:src="@{/js/jquery.min.js}" type="application/javascript"></script>
-
-
-<!--BootstrapJS [ RECOMMENDED ]-->
-<script th:src="@{/js/bootstrap.min.js}" type="application/javascript"></script>
-
-
-<!--NiftyJS [ RECOMMENDED ]-->
-<script th:src="@{/js/nifty.min.js}" type="application/javascript"></script>
-
 
 <!--Custom script [ DEMONSTRATION ]-->
 <!--===================================================-->
 <script>
     $(document).ready(function () {
-        $("#sendBtn").click(function (event) {
-                let klineUrl = $("#klineUrl").val();
-                let symbols = $("#symbols").val();
 
-                if (klineUrl.trim() === '') {
-                    alert('kline的URL不能为空');
-                    return;
-                }
-
-                if (symbols.trim() === '') {
-                    alert('币种不能为空');
-                    return;
-                }
-                debugger
-                $.post("/request", {"url": klineUrl, "symbols": symbols}, function (data) {
-                    // alert("发送成功");
-                    $('#output').val(JSON.stringify(data, null, "\t"));
-                }).done(function () {
-                    console.log("done");
-                }).fail(function (e) {
-                    // alert("发送失败");
-                    $('#output').val(JSON.stringify(e, null, "\t"));
-                }).always(function () {
-                    console.log("complete");
-                }, 'json');
-            }
-        );
 
     });
 </script>
-
 
 </body>
 </html>

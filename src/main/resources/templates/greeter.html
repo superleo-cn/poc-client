@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{header.html :: header}"></div>
+<body>
+<div id="container" class="effect aside-float aside-bright mainnav-out slide">
+
+    <div class="boxed">
+
+        <!--CONTENT CONTAINER-->
+        <!--===================================================-->
+        <div id="content-container">
+            <div id="page-head">
+                <div class="text-center">
+                    <h3>调用Greeter合约</h3>
+                </div>
+            </div>
+
+            <!--Page content-->
+            <!--===================================================-->
+            <div id="page-content">
+
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <p class="text-main text-semibold">说明</p>
+                                <p>
+                                    以下是调用Greeter合约的方法
+                                </p>
+                            </div>
+                            <div class="panel-body">
+                                <form class="panel-body form-horizontal form-padding">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="address">钱包账号</label>
+                                        <div class="col-sm-8">
+                                            <input type="text"
+                                                   value="0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+                                                   placeholder="0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
+                                                   class="form-control input-sm"
+                                                   id="address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="privateKey">私钥</label>
+                                        <div class="col-md-8">
+                                            <input type="text"
+                                                   value="0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+                                                   placeholder="0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
+                                                   class="form-control input-sm"
+                                                   id="privateKey">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="callFunction">调用的合约方法</label>
+                                        <div class="col-sm-8">
+                                            <input type="text"
+                                                   value="greet"
+                                                   placeholder="greet"
+                                                   class="form-control input-sm"
+                                                   id="callFunction">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="newValue">新值</label>
+                                        <div class="col-md-8">
+                                            <input type="text"
+                                                   placeholder="newValue"
+                                                   class="form-control input-sm"
+                                                   id="newValue">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label" for="output">输出</label>
+                                        <div class="col-md-8">
+                                            <textarea id="output" rows="5" class="form-control"
+                                                      placeholder=""></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <button class="btn btn-mint" id="back" style="margin-right: 20px"
+                                                type="button">返回
+                                        </button>
+                                        <button class="btn btn-mint" id="get" style="margin-right: 20px"
+                                                type="button">读取
+                                        </button>
+                                        <button class="btn btn-mint" id="set" style="margin-right: 20px"
+                                                type="button">设置
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--===================================================-->
+            <!--End page content-->
+
+        </div>
+        <!--===================================================-->
+        <!--END CONTENT CONTAINER-->
+    </div>
+
+
+</div>
+<div th:replace="~{footer.html :: footer}"></div>
+<!--===================================================-->
+
+<!--Custom script [ DEMONSTRATION ]-->
+<!--===================================================-->
+<script>
+    $(document).ready(function () {
+        $("#back").click(function (event) {
+            window.location.href = "/";
+        });
+
+        $("#get").click(function (event) {
+
+            let address = $("#address").val();
+            let privateKey = $("#privateKey").val();
+            let callFunction = $("#callFunction").val();
+
+            if (address.trim() === '') {
+                alert('操作钱包账号不能为空');
+                return;
+            }
+
+            if (privateKey.trim() === '') {
+                alert('操作钱包私钥不能为空');
+                return;
+            }
+
+            if (callFunction.trim() === '') {
+                alert('合约方法不能为空');
+                return;
+            }
+
+            var json =  {
+                "address": address,
+                "privateKey": privateKey,
+                "function": callFunction
+            }
+
+            $.ajaxSetup({contentType: "application/json; charset=utf-8"});
+            $.post("/greeter/get", JSON.stringify(json), function (data) {
+                // alert("发送成功");
+                $('#output').val(JSON.stringify(data, null, "\t"));
+            }).done(function () {
+                console.log("done");
+            }).fail(function (e) {
+                // alert("发送失败");
+                $('#output').val(JSON.stringify(e, null, "\t"));
+            }).always(function () {
+                console.log("complete");
+            }, 'json');
+        });
+
+    });
+</script>
+
+</body>
+</html>
+
