@@ -1,4 +1,4 @@
-package io.poc.client.pocclient.controller;
+package io.poc.client.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

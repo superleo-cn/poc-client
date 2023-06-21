@@ -1,4 +1,4 @@
-package io.poc.client.pocclient.config;
+package io.poc.client.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

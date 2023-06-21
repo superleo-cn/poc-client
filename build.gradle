@@ -2,6 +2,10 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.0'
+    // 生产ABI等
+    id 'org.web3j.solidity' version '0.4.0'
+    // 直接生产Java Contract Wrapper
+    id 'org.web3j' version '4.10.0'
 }
 
 group = 'io.poc.client'
@@ -32,4 +36,35 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+// Solidity源文件目录配置
+sourceSets {
+    main {
+        solidity {
+            srcDir {
+                'src/main/solidity'
+            }
+        }
+    }
+}
+
+web3j {
+    version = '4.10.0' // 版本号与插件版本一致
+    generatedPackageName = 'io.poc.client.contracts' // 生成的 Java 合约代码的包名
+    // generatedFilesBaseDir = file('src') // 生成的 Java 合约代码的输出目录
+}
+
+// 解决警告 Gradle detected a problem with the following location: '/build/resources/main/solidity'.
+// Reason: Task ':bootJar' uses this output of task ':compileSolidity' without declaring an explicit or implicit dependency. This can lead to incorrect results being produced, depending on what order the tasks are executed. Please refer to https://docs.gradle.org/7.5.1/userguide/validation_problems.html#implicit_dependency for more details about this problem.
+tasks.named('bootJar') {
+    dependsOn compileSolidity
+}
+
+tasks.named('resolveMainClassName') {
+    dependsOn compileSolidity
+}
+
+tasks.named('jar') {
+    dependsOn compileSolidity
 }

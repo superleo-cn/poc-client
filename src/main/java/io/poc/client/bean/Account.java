@@ -1,4 +1,4 @@
-package io.poc.client.pocclient.bean;
+package io.poc.client.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

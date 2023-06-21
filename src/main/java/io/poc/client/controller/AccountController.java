@@ -1,6 +1,6 @@
-package io.poc.client.pocclient.controller;
+package io.poc.client.controller;
 
-import io.poc.client.pocclient.bean.Account;
+import io.poc.client.bean.Account;
 import io.vavr.control.Try;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -8,14 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
 import org.web3j.utils.Convert;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j

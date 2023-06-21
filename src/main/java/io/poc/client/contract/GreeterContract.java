@@ -1,6 +1,6 @@
-package io.poc.client.pocclient.contract;
+package io.poc.client.contract;
 
-import io.poc.client.pocclient.bean.GreeterParam;
+import io.poc.client.bean.GreeterParam;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,6 @@ import org.web3j.abi.FunctionReturnDecoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Function;
 import org.web3j.abi.datatypes.Type;
-import org.web3j.abi.datatypes.Uint;
 import org.web3j.abi.datatypes.Utf8String;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
